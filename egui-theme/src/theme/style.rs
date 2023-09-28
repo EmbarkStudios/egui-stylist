@@ -25,6 +25,16 @@ macro_rules! ser {
             }
         }
     };
+    ($collection:ident, $style:ident, $prop:ident, $sub_prop:ident, $sub_sub_prop:ident) => {
+        match serde_json::to_value($style.$prop.$sub_prop.$sub_sub_prop.to_owned()) {
+            Ok(value) => {
+                let _ = $collection.insert(stringify!($prop.$sub_prop.$sub_sub_prop).to_owned(), value);
+            }
+            Err(error) => {
+                println!("{}", error);
+            }
+        }
+    };
 }
 
 macro_rules! de {
@@ -41,6 +51,15 @@ macro_rules! de {
             .map(|value| {
                 if let Ok(deserialized_value) = serde_json::from_value(value.to_owned()) {
                     $style.$prop.$sub_prop = deserialized_value;
+                }
+            });
+    };
+    ($collection:ident, $style:ident, $prop:ident, $sub_prop:ident, $sub_sub_prop:ident) => {
+        $collection
+            .get(&stringify!($prop.$sub_prop.$sub_sub_prop).to_owned())
+            .map(|value| {
+                if let Ok(deserialized_value) = serde_json::from_value(value.to_owned()) {
+                    $style.$prop.$sub_prop.$sub_sub_prop = deserialized_value;
                 }
             });
     };
@@ -101,7 +120,7 @@ pub fn from_style(style: Style) -> HashMap<String, super::ThemeValue> {
     ser!(hash_map, style, visuals, window_shadow);
     ser!(hash_map, style, visuals, popup_shadow);
     ser!(hash_map, style, visuals, resize_corner_size);
-    ser!(hash_map, style, visuals, text_cursor_width);
+    ser!(hash_map, style, visuals, text_cursor, width);
     ser!(hash_map, style, visuals, text_cursor_preview);
     ser!(hash_map, style, visuals, clip_rect_margin);
     ser!(hash_map, style, visuals, button_frame);
@@ -171,7 +190,7 @@ pub fn to_style(hash_map: HashMap<String, super::ThemeValue>) -> Style {
     de!(hash_map, style, visuals, window_shadow);
     de!(hash_map, style, visuals, popup_shadow);
     de!(hash_map, style, visuals, resize_corner_size);
-    de!(hash_map, style, visuals, text_cursor_width);
+    de!(hash_map, style, visuals, text_cursor, width);
     de!(hash_map, style, visuals, text_cursor_preview);
     de!(hash_map, style, visuals, clip_rect_margin);
     de!(hash_map, style, visuals, button_frame);

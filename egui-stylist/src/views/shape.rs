@@ -99,7 +99,7 @@ pub fn shape_view(style: &mut Style, ui: &mut Ui) {
         ui.end_row();
 
         ui.label("Text Cursor Width");
-        DragValue::new(&mut style.visuals.text_cursor_width)
+        DragValue::new(&mut style.visuals.text_cursor.width)
             .clamp_range(0.0f32..=50.0f32)
             .ui(ui);
         ui.end_row();
