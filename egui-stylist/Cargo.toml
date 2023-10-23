@@ -16,9 +16,9 @@ crate-type = ["rlib"]
 
 [dependencies]
 egui-theme = { version = "0.2", path = "../egui-theme"}
-egui = { version = "0.23", default-features = false, features = ["serde"]}
+egui = { git = "https://github.com/fornwall/egui", default-features = false, features = ["serde"]}
 # Required for font serialization
 base64 = "0.13.0"
 # Required for serialization
 serde = { version = "1", features = ["derive"] }
-egui_plot = "0.23.0"
+egui_plot = { git = "https://github.com/fornwall/egui" }
