@@ -101,7 +101,21 @@ pub fn from_style(style: Style) -> HashMap<String, super::ThemeValue> {
     ser!(hash_map, style, spacing, tooltip_width);
     ser!(hash_map, style, spacing, indent_ends_with_horizontal_line);
     ser!(hash_map, style, spacing, combo_height);
-    ser!(hash_map, style, spacing, scroll_bar_width);
+
+    ser!(hash_map, style, spacing, scroll, floating);
+    ser!(hash_map, style, spacing, scroll, bar_width);
+    ser!(hash_map, style, spacing, scroll, handle_min_length);
+    ser!(hash_map, style, spacing, scroll, bar_inner_margin);
+    ser!(hash_map, style, spacing, scroll, bar_outer_margin);
+    ser!(hash_map, style, spacing, scroll, floating_width);
+    ser!(hash_map, style, spacing, scroll, floating_allocated_width);
+    ser!(hash_map, style, spacing, scroll, foreground_color);
+    ser!(hash_map, style, spacing, scroll, dormant_background_opacity);
+    ser!(hash_map, style, spacing, scroll, active_background_opacity);
+    ser!(hash_map, style, spacing, scroll, interact_background_opacity);
+    ser!(hash_map, style, spacing, scroll, dormant_handle_opacity);
+    ser!(hash_map, style, spacing, scroll, active_handle_opacity);
+    ser!(hash_map, style, spacing, scroll, interact_handle_opacity);
 
     ser!(hash_map, style, interaction, resize_grab_radius_side);
     ser!(hash_map, style, interaction, resize_grab_radius_corner);
@@ -172,7 +186,21 @@ pub fn to_style(hash_map: HashMap<String, super::ThemeValue>) -> Style {
     de!(hash_map, style, spacing, tooltip_width);
     de!(hash_map, style, spacing, indent_ends_with_horizontal_line);
     de!(hash_map, style, spacing, combo_height);
-    de!(hash_map, style, spacing, scroll_bar_width);
+
+    de!(hash_map, style, spacing, scroll, floating);
+    de!(hash_map, style, spacing, scroll, bar_width);
+    de!(hash_map, style, spacing, scroll, handle_min_length);
+    de!(hash_map, style, spacing, scroll, bar_inner_margin);
+    de!(hash_map, style, spacing, scroll, bar_outer_margin);
+    de!(hash_map, style, spacing, scroll, floating_width);
+    de!(hash_map, style, spacing, scroll, floating_allocated_width);
+    de!(hash_map, style, spacing, scroll, foreground_color);
+    de!(hash_map, style, spacing, scroll, dormant_background_opacity);
+    de!(hash_map, style, spacing, scroll, active_background_opacity);
+    de!(hash_map, style, spacing, scroll, interact_background_opacity);
+    de!(hash_map, style, spacing, scroll, dormant_handle_opacity);
+    de!(hash_map, style, spacing, scroll, active_handle_opacity);
+    de!(hash_map, style, spacing, scroll, interact_handle_opacity);
 
     de!(hash_map, style, interaction, resize_grab_radius_side);
     de!(hash_map, style, interaction, resize_grab_radius_corner);
