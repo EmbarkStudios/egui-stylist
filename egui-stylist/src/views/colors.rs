@@ -47,28 +47,19 @@ pub fn colors_view(style: &mut Style, ui: &mut Ui) {
                 .show(ui, |ui| {
                     color_grid!(
                         ui,
-                        (
-                            "Window Fill",
-                            &mut style.visuals.window_fill
-                        ),
-                        (
-                            "Window Outline",
-                            &mut style.visuals.window_stroke.color
-                        ),
+                        ("Window Fill", &mut style.visuals.window_fill),
+                        ("Window Outline", &mut style.visuals.window_stroke.color),
                         ("Window Shadow", &mut style.visuals.window_shadow.color),
                         ("Panel Fill", &mut style.visuals.panel_fill)
                     );
                 });
 
-                CollapsingHeader::new("Non Interactive Widget Settings")
+            CollapsingHeader::new("Non Interactive Widget Settings")
                 .default_open(true)
                 .show(ui, |ui| {
                     color_grid!(
                         ui,
-                        (
-                            "Fill",
-                            &mut style.visuals.widgets.noninteractive.bg_fill
-                        ),
+                        ("Fill", &mut style.visuals.widgets.noninteractive.bg_fill),
                         (
                             "Text",
                             &mut style.visuals.widgets.noninteractive.fg_stroke.color
@@ -76,7 +67,7 @@ pub fn colors_view(style: &mut Style, ui: &mut Ui) {
                         (
                             "Outline",
                             &mut style.visuals.widgets.noninteractive.bg_stroke.color
-                        )                     
+                        )
                     );
                 });
 

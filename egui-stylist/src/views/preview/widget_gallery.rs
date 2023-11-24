@@ -1,6 +1,6 @@
 //! This is modified from the widget gallery code available at the [egui repository](https://github.com/emilk/egui/blob/master/egui_demo_lib/src/apps/demo/widget_gallery.rs)
-use egui::{Label, RichText, TextStyle, Widget,  Image, ImageSource, load::SizedTexture};
-use egui_plot::{Plot, Line};
+use egui::{load::SizedTexture, Image, ImageSource, Label, RichText, TextStyle, Widget};
+use egui_plot::{Line, Plot};
 
 #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 enum Enum {
@@ -237,15 +237,18 @@ impl WidgetGallery {
         ui.end_row();
 
         ui.label("Image");
-        ui.image(ImageSource::Texture(SizedTexture::new( egui::TextureId::Managed(0), [24.0, 16.0])))
-            .on_hover_text("The egui font texture was the most convenient choice to show here.");
+        ui.image(ImageSource::Texture(SizedTexture::new(
+            egui::TextureId::Managed(0),
+            [24.0, 16.0],
+        )))
+        .on_hover_text("The egui font texture was the most convenient choice to show here.");
         ui.end_row();
 
         ui.label("ImageButton");
         if ui
-            .add(egui::ImageButton::new(
-                Image::new(ImageSource::Texture(SizedTexture::new( egui::TextureId::Managed(0), [24.0, 16.0])))             
-            ))
+            .add(egui::ImageButton::new(Image::new(ImageSource::Texture(
+                SizedTexture::new(egui::TextureId::Managed(0), [24.0, 16.0]),
+            ))))
             .on_hover_text("The egui font texture was the most convenient choice to show here.")
             .clicked()
         {
@@ -274,13 +277,15 @@ impl WidgetGallery {
     }
 }
 
-fn example_plot(ui: &mut egui::Ui) -> egui::Response {    
+fn example_plot(ui: &mut egui::Ui) -> egui::Response {
     let n = 128;
-    let points: Vec<_> = (0..=n).map(|i| {
-        use std::f64::consts::TAU;
-        let x = egui::remap(i as f64, 0.0..=(n as f64), -TAU..=TAU);
-        [x, x.sin()]
-    }).collect();
+    let points: Vec<_> = (0..=n)
+        .map(|i| {
+            use std::f64::consts::TAU;
+            let x = egui::remap(i as f64, 0.0..=(n as f64), -TAU..=TAU);
+            [x, x.sin()]
+        })
+        .collect();
     let line = Line::new(points);
     Plot::new("example_plot")
         .height(32.0)
