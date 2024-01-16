@@ -22,7 +22,7 @@ fn test_serialize_theme() {
 #[test]
 fn test_default_theme_extract() {
     let theme = EguiTheme::new(egui::Style::default(), egui::FontDefinitions::default());
-    let (style, fonts) = theme.extract();
+    let (style, fonts, _) = theme.extract();
     let default_style = egui::Style::default();
     let default_fonts = egui::FontDefinitions::default();
     assert_eq!(
@@ -68,7 +68,7 @@ fn test_custom_font_extract() {
 
     let theme = EguiTheme::new(egui::Style::default(), font_definitions);
 
-    let (_, fonts) = theme.extract();
+    let (_, fonts, _) = theme.extract();
     assert!(
         fonts.font_data.contains_key(&FONT_NAME.to_owned()),
         "does not have `Nacelle` key"
@@ -174,7 +174,7 @@ fn test_text_style() {
 
     let deserialized =
         serde_json::from_str::<EguiTheme>(serialized.as_str()).expect("deserialization failed");
-    let (de_style, _fonts) = deserialized.extract();
+    let (de_style, _fonts, _) = deserialized.extract();
     assert!(
         de_style.text_styles().contains(&TextStyle::Body),
         "text style `Body` does not exist"
@@ -228,7 +228,7 @@ fn test_colors() {
     let serialized = serde_json::to_string(&theme).expect("serialization failed");
     let deserialized =
         serde_json::from_str::<EguiTheme>(serialized.as_str()).expect("deserialization failed");
-    let (de_style, _fonts) = deserialized.extract();
+    let (de_style, _fonts, _) = deserialized.extract();
 
     assert_eq!(
         de_style.visuals.widgets.noninteractive.fg_stroke,

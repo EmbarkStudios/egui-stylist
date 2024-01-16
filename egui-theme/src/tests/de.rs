@@ -16,7 +16,7 @@ fn test_serialize_default() {
         crate::EGUI_VERSION,
         "egui_version should match"
     );
-    let (style, fonts) = deserialized_theme.extract();
+    let (style, fonts, _) = deserialized_theme.extract();
     let default_style = Style::default();
     let default_fonts = FontDefinitions::default();
     assert_eq!(style, default_style, "default should match");
@@ -37,7 +37,7 @@ fn test_deserialize_custom() {
         crate::EGUI_VERSION,
         "egui_version should match"
     );
-    let (style, fonts) = deserialized_theme.extract();
+    let (style, fonts, _) = deserialized_theme.extract();
     assert_eq!(
         style.spacing.slider_width, 100f32,
         "spacing.slider_width should be 100"
@@ -99,7 +99,7 @@ fn test_deserialize_custom() {
 fn test_deserialize_missing_data() {
     let theme = include_str!("test-themes/missing_data.ron");
     let deserialized_theme = ron::from_str::<EguiTheme>(theme).expect("failed to deserialize");
-    let (style, fonts) = deserialized_theme.extract();
+    let (style, fonts, _) = deserialized_theme.extract();
     let default_style = Style::default();
     let default_fonts = FontDefinitions::default();
     assert_eq!(style, default_style, "default should match");
@@ -109,7 +109,7 @@ fn test_deserialize_missing_data() {
 fn test_deserialize_incorrect_parameters() {
     let theme = include_str!("test-themes/incorrect_parameters.ron");
     let deserialized_theme = ron::from_str::<EguiTheme>(theme).expect("failed to deserialize");
-    let (style, fonts) = deserialized_theme.extract();
+    let (style, fonts, _) = deserialized_theme.extract();
     let default_style = Style::default();
     let default_fonts = FontDefinitions::default();
     assert_eq!(style, default_style, "default should match");
@@ -120,7 +120,7 @@ fn test_deserialize_incorrect_parameters() {
 fn test_deserialize_incorrect_fields() {
     let theme = include_str!("test-themes/incorrect_fields.ron");
     let deserialized_theme = ron::from_str::<EguiTheme>(theme).expect("failed to deserialize");
-    let (style, fonts) = deserialized_theme.extract();
+    let (style, fonts, _) = deserialized_theme.extract();
     let default_style = Style::default();
     let default_fonts = FontDefinitions::default();
     assert_eq!(style, default_style, "default should match");
