@@ -1,9 +1,9 @@
 [workspace]
 members = ["egui-stylist", "egui-theme"]
+resolver = "2"
 
 [profile.dev.package."*"]
 opt-level = 3
 
 [profile.release]
 opt-level = 2 # fast and small wasm
-

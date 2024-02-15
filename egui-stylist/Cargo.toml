@@ -3,8 +3,8 @@ name = "egui-stylist"
 version = "0.2.0"
 authors = ["Jacobsky"]
 edition = "2018"
-description="An embeddable theme editor for egui."
-license="MIT"
+description = "An embeddable theme editor for egui."
+license = "MIT"
 readme = "README.md"
 
 
@@ -15,10 +15,8 @@ path = "src/lib.rs"
 crate-type = ["rlib"]
 
 [dependencies]
-egui-theme = { version = "0.2", path = "../egui-theme"}
-egui = { version = "0.25", default-features = false, features = ["serde"]}
-# Required for font serialization
-base64 = "0.13.0"
+egui-theme = { version = "0.2", path = "../egui-theme" }
+egui = { version = "0.25", default-features = false, features = ["serde"] }
 # Required for serialization
 serde = { version = "1", features = ["derive"] }
 egui_plot = "0.25.0"
