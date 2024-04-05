@@ -81,13 +81,13 @@ pub fn shape_view(style: &mut Style, ui: &mut Ui) {
         ui.end_row();
 
         ui.label("Window Shadow Extrusion");
-        DragValue::new(&mut style.visuals.window_shadow.extrusion)
+        DragValue::new(&mut style.visuals.window_shadow.margin().sum().max_elem())
             .clamp_range(0.0f32..=50.0f32)
             .ui(ui);
         ui.end_row();
 
         ui.label("Popup Shadow Extrusion");
-        DragValue::new(&mut style.visuals.popup_shadow.extrusion)
+        DragValue::new(&mut style.visuals.popup_shadow.margin().sum().max_elem())
             .clamp_range(0.0f32..=50.0f32)
             .ui(ui);
         ui.end_row();
