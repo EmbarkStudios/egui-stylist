@@ -175,7 +175,7 @@ pub fn fonts_view(
             Grid::new("_general_settings").show(ui, |ui| {
                 ui.label("Pixels Per Point");
                 DragValue::new(&mut state.pixels_per_point)
-                    .clamp_range(0.001f32..=4.0f32)
+                    .range(0.001f32..=4.0f32)
                     .min_decimals(2)
                     .max_decimals(3)
                     .ui(ui);

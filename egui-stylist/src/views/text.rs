@@ -52,7 +52,7 @@ pub fn text_styles_view(
                             );
                         }
                     });
-                ui.add(DragValue::new(&mut font_id.size).clamp_range(TEXT_STYLE_RANGE));
+                ui.add(DragValue::new(&mut font_id.size).range(TEXT_STYLE_RANGE));
             } else {
                 ui.label("No FontID associated");
             }
@@ -69,7 +69,7 @@ pub fn text_styles_view(
                 .num_columns(2)
                 .show(ui, |ui| {
                     ui.label("Font Size");
-                    ui.add(DragValue::new(&mut state.new_style_size).clamp_range(TEXT_STYLE_RANGE));
+                    ui.add(DragValue::new(&mut state.new_style_size).range(TEXT_STYLE_RANGE));
                     ui.end_row();
                     // probably put the selectable values and stuff here.
                     ui.label("Font Family");

@@ -36,6 +36,17 @@ macro_rules! ser {
             }
         }
     };
+    ($collection:ident, $style:ident, $prop:ident, $sub_prop:ident, $sub_sub_prop:ident, $sub_sub_sub_prop:ident) => {
+        match serde_json::to_value($style.$prop.$sub_prop.$sub_sub_prop.$sub_sub_sub_prop.to_owned()) {
+            Ok(value) => {
+                let _ =
+                    $collection.insert(stringify!($prop.$sub_prop.$sub_sub_prop.$sub_sub_sub_prop).to_owned(), value);
+            }
+            Err(error) => {
+                println!("{}", error);
+            }
+        }
+    };
 }
 
 macro_rules! de {
@@ -64,6 +75,15 @@ macro_rules! de {
                 }
             });
     };
+    ($collection:ident, $style:ident, $prop:ident, $sub_prop:ident, $sub_sub_prop:ident, $sub_sub_sub_prop:ident) => {
+        $collection
+            .get(&stringify!($prop.$sub_prop.$sub_sub_prop.$sub_sub_sub_prop).to_owned())
+            .map(|value| {
+                if let Ok(deserialized_value) = serde_json::from_value(value.to_owned()) {
+                    $style.$prop.$sub_prop.$sub_sub_prop.$sub_sub_sub_prop = deserialized_value;
+                }
+            });
+    };
 }
 
 /// Helper function to serialize the `egui::Style`
@@ -85,7 +105,7 @@ pub fn from_style(style: Style) -> HashMap<String, super::ThemeValue> {
 
     ser!(hash_map, style, override_text_style);
     ser!(hash_map, style, override_font_id);
-    ser!(hash_map, style, wrap);
+    ser!(hash_map, style, wrap_mode);
 
     ser!(hash_map, style, animation_time);
     ser!(hash_map, style, explanation_tooltips);
@@ -135,8 +155,12 @@ pub fn from_style(style: Style) -> HashMap<String, super::ThemeValue> {
     ser!(hash_map, style, visuals, window_shadow);
     ser!(hash_map, style, visuals, popup_shadow);
     ser!(hash_map, style, visuals, resize_corner_size);
-    ser!(hash_map, style, visuals, text_cursor, width);
-    ser!(hash_map, style, visuals, text_cursor_preview);
+    ser!(hash_map, style, visuals, text_cursor, stroke, width);
+    ser!(hash_map, style, visuals, text_cursor, stroke, color);
+    ser!(hash_map, style, visuals, text_cursor, preview);
+    ser!(hash_map, style, visuals, text_cursor, blink);
+    ser!(hash_map, style, visuals, text_cursor, on_duration);
+    ser!(hash_map, style, visuals, text_cursor, off_duration);
     ser!(hash_map, style, visuals, clip_rect_margin);
     ser!(hash_map, style, visuals, button_frame);
     ser!(hash_map, style, visuals, collapsing_header_frame);
@@ -170,7 +194,7 @@ pub fn to_style(hash_map: HashMap<String, super::ThemeValue>) -> Style {
 
     de!(hash_map, style, override_text_style);
     de!(hash_map, style, override_font_id);
-    de!(hash_map, style, wrap);
+    de!(hash_map, style, wrap_mode);
 
     de!(hash_map, style, animation_time);
     de!(hash_map, style, explanation_tooltips);
@@ -219,8 +243,12 @@ pub fn to_style(hash_map: HashMap<String, super::ThemeValue>) -> Style {
     de!(hash_map, style, visuals, window_shadow);
     de!(hash_map, style, visuals, popup_shadow);
     de!(hash_map, style, visuals, resize_corner_size);
-    de!(hash_map, style, visuals, text_cursor, width);
-    de!(hash_map, style, visuals, text_cursor_preview);
+    de!(hash_map, style, visuals, text_cursor, stroke, width);
+    de!(hash_map, style, visuals, text_cursor, stroke, color);
+    de!(hash_map, style, visuals, text_cursor, preview);
+    de!(hash_map, style, visuals, text_cursor, blink);
+    de!(hash_map, style, visuals, text_cursor, on_duration);
+    de!(hash_map, style, visuals, text_cursor, off_duration);
     de!(hash_map, style, visuals, clip_rect_margin);
     de!(hash_map, style, visuals, button_frame);
     de!(hash_map, style, visuals, collapsing_header_frame);

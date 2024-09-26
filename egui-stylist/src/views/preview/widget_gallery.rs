@@ -40,8 +40,12 @@ impl Default for WidgetGallery {
 impl WidgetGallery {
     pub fn ui(&mut self, ui: &mut egui::Ui) {
         ui.scope(|ui| {
-            ui.set_visible(self.visible);
-            ui.set_enabled(self.enabled);
+            if !self.visible {
+                ui.set_invisible();
+            }
+            if !self.enabled {
+                ui.disable();
+            }
 
             egui::Grid::new("my_grid")
                 .num_columns(2)
